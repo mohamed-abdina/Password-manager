@@ -2,6 +2,16 @@
 
 A simple command-line password manager built in Python. Store, manage, and generate passwords locally with ease.
 
+## Project Structure
+
+```
+Password-manager/
+├── password_manager.py   # Main application with all functionality
+├── README.md             # Project documentation
+├── .gitignore            # Git ignore rules
+└── passwords.json        # Data file (auto-created, not in repo)
+```
+
 ## Features
 
 - **Add** new password entries with website, username, and password

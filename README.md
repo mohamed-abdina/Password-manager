@@ -60,6 +60,27 @@ Simply enter the number of the action you want to perform.
 | 6. Generate | Create a strong random password |
 | 7. Exit | Close the program |
 
+### Add Password (Option 1)
+
+When you select option 1, the program will:
+
+1. Ask for the **Website/App name** (e.g., `github.com`)
+2. Ask for the **Username/Email** (e.g., `mohamed-abdina`)
+3. Ask if you want to **generate a password automatically**
+   - Type `y` for a strong generated password
+   - Type `n` to enter your own password
+4. The entry is saved and the **strength** is evaluated
+
+**Example:**
+```
+--- Add New Password ---
+Website/App name: github.com
+Username/Email: mohamed-abdina
+Generate a strong password automatically? (y/n): n
+Enter password: MySecurePass123!
+✅ Saved 'github.com' (Strength: Strong)
+```
+
 ## Data Storage
 
 - All passwords are stored locally in `passwords.json`

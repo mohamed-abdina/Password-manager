@@ -223,6 +223,9 @@ def add_password(data):
         return
 
     username = input("Username/Email: ").strip()
+    if not username:
+        print("⚠  Username cannot be empty. Nothing was saved.")
+        return
 
     use_generated = input("Generate a strong password automatically? (y/n): ").strip().lower()
     if use_generated == "y":
@@ -263,14 +266,17 @@ def view_passwords(data):
 
 
 def search_password(data):
-    """Search for a single entry by website name."""
+    """Search for a single entry by website name (case-insensitive)."""
     print("\n--- Search Password ---")
     website = input("Enter website/app name to search: ").strip()
 
-    if website in data:
-        print_entry(website, data[website])
-    else:
-        print(f"⚠  No entry found for '{website}'.")
+    # Case-insensitive search
+    for key in data:
+        if key.lower() == website.lower():
+            print_entry(key, data[key])
+            return
+
+    print(f"⚠  No entry found for '{website}'.")
 
 
 def update_password(data):

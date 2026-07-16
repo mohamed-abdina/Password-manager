@@ -81,6 +81,31 @@ Enter password: MySecurePass123!
 ✅ Saved 'github.com' (Strength: Strong)
 ```
 
+### View Passwords (Option 2)
+
+When you select option 2, the program displays all saved password entries in a clean, formatted list.
+
+**Example:**
+```
+--- Saved Passwords ----------------------------------------
+Website : github.com
+Username: mohamed-abdina
+Password: MySecurePass123!
+Strength: Strong
+----------------------------------------
+Website : gmail.com
+Username: mohamed@gmail.com
+Password: GmailPass456
+Strength: Medium
+----------------------------------------
+Total entries: 2
+```
+
+If no passwords are saved yet, it shows:
+```
+No passwords saved yet.
+```
+
 ## Data Storage
 
 - All passwords are stored locally in `passwords.json`

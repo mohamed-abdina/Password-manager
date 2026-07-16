@@ -48,6 +48,18 @@ When you run the program, you'll see a menu with 7 options:
 
 Simply enter the number of the action you want to perform.
 
+### Menu Options
+
+| Option | Description |
+|--------|-------------|
+| 1. Add | Create a new password entry with website, username, and password |
+| 2. View | Display all saved password entries |
+| 3. Search | Find a specific entry by website name |
+| 4. Update | Change the password for an existing entry |
+| 5. Delete | Remove an entry from the vault |
+| 6. Generate | Create a strong random password |
+| 7. Exit | Close the program |
+
 ## Data Storage
 
 - All passwords are stored locally in `passwords.json`

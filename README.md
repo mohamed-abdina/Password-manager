@@ -106,6 +106,26 @@ If no passwords are saved yet, it shows:
 No passwords saved yet.
 ```
 
+### Search Password (Option 3)
+
+When you select option 3, the program searches for an entry by website name (case-insensitive).
+
+**Example:**
+```
+--- Search Password ---
+Enter website/app name to search: github
+----------------------------------------
+Website : github.com
+Username: mohamed-abdina
+Password: MySecurePass123!
+Strength: Strong
+```
+
+If no matching entry is found:
+```
+⚠  No entry found for 'twitter'.
+```
+
 ## Data Storage
 
 - All passwords are stored locally in `passwords.json`

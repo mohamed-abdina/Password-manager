@@ -148,6 +148,31 @@ If the entry doesn't exist:
 ⚠  No entry found for 'twitter'.
 ```
 
+### Delete Password (Option 5)
+
+When you select option 5, the program removes an entry after confirmation.
+
+1. Enter the **Website/App name** to delete
+2. Confirm the deletion by typing `y`
+
+**Example:**
+```
+--- Delete Password ---
+Enter website/app name to delete: github.com
+Are you sure you want to delete 'github.com'? (y/n): y
+✅ Deleted 'github.com'.
+```
+
+If you choose not to confirm:
+```
+Deletion cancelled.
+```
+
+If the entry doesn't exist:
+```
+⚠  No entry found for 'twitter'.
+```
+
 ## Data Storage
 
 - All passwords are stored locally in `passwords.json`

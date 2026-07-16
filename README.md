@@ -126,6 +126,28 @@ If no matching entry is found:
 ⚠  No entry found for 'twitter'.
 ```
 
+### Update Password (Option 4)
+
+When you select option 4, the program updates the password for an existing entry.
+
+1. Enter the **Website/App name** to update
+2. Choose to **generate a new password** or enter one manually
+3. The password and strength rating are updated
+
+**Example:**
+```
+--- Update Password ---
+Enter website/app name to update: github.com
+Generate a new strong password automatically? (y/n): n
+Enter new password: NewSecurePass789!
+✅ Password for 'github.com' updated successfully!
+```
+
+If the entry doesn't exist:
+```
+⚠  No entry found for 'twitter'.
+```
+
 ## Data Storage
 
 - All passwords are stored locally in `passwords.json`

@@ -41,6 +41,27 @@ DATA_FILE = "passwords.json"
 
 
 # ---------------------------------------------------------------------------
+# Input helpers
+# ---------------------------------------------------------------------------
+
+def get_yes_no(prompt):
+    """Get a validated y/n input from the user."""
+    while True:
+        answer = input(prompt).strip().lower()
+        if answer in ("y", "n"):
+            return answer
+        print("⚠  Please enter 'y' or 'n'.")
+
+
+def find_entry(data, name):
+    """Find an entry by name (case-insensitive). Returns the key or None."""
+    for key in data:
+        if key.lower() == name.lower():
+            return key
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Data helpers — reading and writing passwords.json
 # ---------------------------------------------------------------------------
 
@@ -218,7 +239,7 @@ def add_password(data):
         print("⚠  Website name cannot be empty. Nothing was saved.")
         return
 
-    if website in data:
+    if find_entry(data, website):
         print(f"⚠  An entry for '{website}' already exists. Use 'Update' instead.")
         return
 
@@ -227,7 +248,7 @@ def add_password(data):
         print("⚠  Username cannot be empty. Nothing was saved.")
         return
 
-    use_generated = input("Generate a strong password automatically? (y/n): ").strip().lower()
+    use_generated = get_yes_no("Generate a strong password automatically? (y/n): ")
     if use_generated == "y":
         password = generate_password()
         print(f"Generated password: {password}")
@@ -270,13 +291,15 @@ def search_password(data):
     print("\n--- Search Password ---")
     website = input("Enter website/app name to search: ").strip()
 
-    # Case-insensitive search
-    for key in data:
-        if key.lower() == website.lower():
-            print_entry(key, data[key])
-            return
+    if not website:
+        print("⚠  Please enter a website name to search.")
+        return
 
-    print(f"⚠  No entry found for '{website}'.")
+    key = find_entry(data, website)
+    if key:
+        print_entry(key, data[key])
+    else:
+        print(f"⚠  No entry found for '{website}'.")
 
 
 def update_password(data):
@@ -284,11 +307,16 @@ def update_password(data):
     print("\n--- Update Password ---")
     website = input("Enter website/app name to update: ").strip()
 
-    if website not in data:
+    if not website:
+        print("⚠  Please enter a website name to update.")
+        return
+
+    key = find_entry(data, website)
+    if not key:
         print(f"⚠  No entry found for '{website}'.")
         return
 
-    use_generated = input("Generate a new strong password automatically? (y/n): ").strip().lower()
+    use_generated = get_yes_no("Generate a new strong password automatically? (y/n): ")
     if use_generated == "y":
         new_password = generate_password()
         print(f"Generated password: {new_password}")
@@ -299,11 +327,11 @@ def update_password(data):
         print("⚠  Password cannot be empty. Update cancelled.")
         return
 
-    data[website]["password"] = new_password
-    data[website]["strength"] = check_strength(new_password)
+    data[key]["password"] = new_password
+    data[key]["strength"] = check_strength(new_password)
 
     save_data(data)
-    print(f"✅ Password for '{website}' updated successfully!")
+    print(f"✅ Password for '{key}' updated successfully!")
 
 
 def delete_password(data):
@@ -311,15 +339,20 @@ def delete_password(data):
     print("\n--- Delete Password ---")
     website = input("Enter website/app name to delete: ").strip()
 
-    if website not in data:
+    if not website:
+        print("⚠  Please enter a website name to delete.")
+        return
+
+    key = find_entry(data, website)
+    if not key:
         print(f"⚠  No entry found for '{website}'.")
         return
 
-    confirm = input(f"Are you sure you want to delete '{website}'? (y/n): ").strip().lower()
+    confirm = get_yes_no(f"Are you sure you want to delete '{key}'? (y/n): ")
     if confirm == "y":
-        del data[website]
+        del data[key]
         save_data(data)
-        print(f"✅ Deleted '{website}'.")
+        print(f"✅ Deleted '{key}'.")
     else:
         print("Deletion cancelled.")
 
@@ -327,13 +360,19 @@ def delete_password(data):
 def generate_password_menu():
     """Let the user generate a password without saving it to an entry."""
     print("\n--- Generate Strong Password ---")
-    raw_length = input("Enter desired password length (default 12): ").strip()
+    raw_length = input("Enter desired password length (min 4, default 12): ").strip()
 
     if raw_length == "":
         length = 12
     else:
         try:
             length = int(raw_length)
+            if length < 4:
+                print("⚠  Minimum length is 4. Using 4.")
+                length = 4
+            elif length > 64:
+                print("⚠  Maximum length is 64. Using 64.")
+                length = 64
         except ValueError:
             print("⚠  Invalid number entered. Using default length of 12.")
             length = 12
